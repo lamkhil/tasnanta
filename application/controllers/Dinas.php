@@ -14,14 +14,17 @@ class dinas extends CI_Controller
     public function index()
     {
 
-        $data['title'] = 'Dashboard Admin Dinas';
+        $data['title'] = 'Validasi Pariwisata';
         $data['admin'] = $this->M_Dinas->getDataDinas();
+        $data['wisata'] = $this->M_Desa->getWisata();
+        $data['status'] = $this->M_Dinas->getStatus();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar_dinas', $data);
         $this->load->view('admin/v_dinas', $data);
         $this->load->view('template/footer');
     }
+
     public function profil()
     {
         $this->load->model('M_Dinas');
@@ -49,46 +52,10 @@ class dinas extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar_dinas', $data);
-            $this->load->view('admin/profil_dinas', $data);
+            $this->load->view('admin/profile_dinas', $data);
             $this->load->view('template/footer');
         } else {
-            $email     = $this->input->post('email', TRUE);
-            $username  = $this->input->post('username', TRUE);
-            $telp      = $this->input->post('telp', TRUE);
-            $foto      = $this->input->post('foto', TRUE);
-
-            $data = array(
-                'email'     => $email,
-                'username'  => $username,
-                'telp'      => $telp,
-                'foto'      => $foto,
-            );
-
-            //Jika Ada Foto yang diupload
-            $upload_foto = $_FILES['foto']['name'];
-
-            if ($upload_foto) {
-                $config['upload_path']      = './assets/img/profile/';
-                $config['allowed_types']    = 'gif|jpg|png';
-                $config['max_size']         = '2048';
-                $config['file_name']         = $foto;
-
-                $this->load->library('upload', $config);
-
-                if ($this->upload->do_upload('foto')) {
-                    $foto_baru = $this->upload->data('file_name');
-                    $this->db->set('foto', $foto_baru);
-                } else {
-                    $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
-                    redirect('dinas');
-                }
-            }
-
-            $this->db->set('username', $username);
-            $this->db->set('telp', $telp);
-            $this->db->where('email', $email);
-            $this->db->update('tb_user', $data);
-
+            $this->M_Dinas->ubahDataProfile();
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">Data berhasil diubah!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('dinas/profil');
         }
@@ -185,6 +152,19 @@ class dinas extends CI_Controller
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar_dinas', $data);
         $this->load->view('validasi/v_validasi', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function pemeringkatan()
+    {
+        $data['title'] = 'Pemeringkatan';
+        $data['admin'] = $this->M_Dinas->getDataDinas();
+        $data['wisata'] = $this->M_Desa->getWisata();
+        $data['status'] = $this->M_Dinas->getStatus();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar_dinas', $data);
+        $this->load->view('pemeringkatan/v_pemeringkatan', $data);
         $this->load->view('template/footer');
     }
 

@@ -33,32 +33,29 @@ class M_Desa extends CI_Model
         $data = array(
             'email'     => $email,
             'username'  => $username,
-            'telp'      => $telp,
-            'foto'      => $foto
+            'telp'      => $telp
         );
 
-        //Jika Ada Foto yang diupload
-        $upload_foto = $_FILES['foto']['name'];
-
-        if ($upload_foto) {
-            $config['upload_path']      = './assets/img/profile/';
-            $config['allowed_types']    = 'gif|jpg|png';
-            $config['max_size']         = '2048';
-            $config['file_name']         = $foto;
+         //Jika Ada Foto yang diupload
+         $upload_foto = $_FILES['foto']['name'];
+         $file_name = str_replace('.','',$email);
+         if ($upload_foto) {
+             $config['upload_path']      = './assets/img/profile/';
+             $config['allowed_types']    = 'gif|jpg|png|jpeg';
+             $config['max_size']         = 2048;
+             $config['file_name']        = $file_name;
+             $config['overwrite']        = true;
 
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('foto')) {
                 $foto_baru = $this->upload->data('file_name');
-                $this->db->set('foto', $foto_baru);
+                $data['foto'] = $foto_baru;
             } else {
                 $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
                 redirect('desa');
             }
         }
-
-        $this->db->set('username', $username);
-        $this->db->set('telp', $telp);
         $this->db->where('email', $email);
         $this->db->update('tb_user', $data);
     }
@@ -88,17 +85,28 @@ class M_Desa extends CI_Model
     {
         $nm_pariwisata = $this->input->post('nm_pariwisata', true);
         $alamat = $this->input->post('alamat', true);
-        $id_subkriteria = $this->input->post('id_subkriteria', true);
-        $id_status = 0;
+        $id_user = $this->input->post('id_user', true);
 
         $data = array(
             'nm_pariwisata'     => $nm_pariwisata,
             'alamat'            => $alamat,
-            'id_subkriteria'    => $id_subkriteria,
-            'id_status'         => $id_status,
+            'id_user'           => $id_user
         );
 
         $this->db->insert('tb_pariwisata', $data);
+        $id = $this->db->insert_id();
+        // tambah nilai
+        $query = $this->db->get('tb_kriteria');
+        $kriteria = $query->result_array();
+
+        foreach ($kriteria as $kr) {
+            $nilai = array(
+                'id_pariwisata'     => $id,
+                'kriteria_id'       => $kr['id_kriteria'],
+                'id_subkriteria'    => $this->input->post($kr['id_kriteria'], true)
+            );
+            $this->db->insert('tb_nilai', $nilai);
+        }
     }
 
     public function editDataWisata($id_pariwisata)

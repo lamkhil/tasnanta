@@ -82,4 +82,41 @@ class M_Dinas extends CI_model
         $this->db->where('id_pariwisata', $id_pariwisata);
         $this->db->update('tb_pariwisata', $data);
     }
+
+    public function ubahDataProfile()
+    {
+        $email     = $this->input->post('email', TRUE);
+        $username  = $this->input->post('username', TRUE);
+        $telp      = $this->input->post('telp', TRUE);
+
+        $data = array(
+            'email'     => $email,
+            'username'  => $username,
+            'telp'      => $telp
+        );
+
+        //Jika Ada Foto yang diupload
+        $upload_foto = $_FILES['foto']['name'];
+        $file_name = str_replace('.','',$email);
+        if ($upload_foto) {
+            $config['upload_path']      = './assets/img/profile/';
+            $config['allowed_types']    = 'gif|jpg|png|jpeg';
+            $config['max_size']         = 2048;
+            $config['file_name']        = $file_name;
+            $config['overwrite']        = true;
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('foto')) {
+                $foto_baru = $this->upload->data('file_name');
+                $data['foto'] = $foto_baru;
+            } else {
+                $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
+                redirect('dinas/profile');
+            }
+        }
+
+        $this->db->where('email', $email);
+        $this->db->update('tb_user', $data);
+    }
 }

@@ -65,6 +65,8 @@ class desa extends CI_Controller
         $data['subkriteria'] = $this->M_Kriteria->getAllSubkriteria();
         $data['nilai'] = $this->M_Desa->getNilaiByPariwisata();
 
+
+
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar_desa', $data);
         $this->load->view('survey/v_survey', $data);
@@ -79,16 +81,18 @@ class desa extends CI_Controller
         $data['subkriteria'] = $this->M_Kriteria->getAllSubkriteria();
         $data['nilai'] = $this->M_Desa->getNilaiByPariwisata();
 
-        $this->form_validation->set_rules('nm_pariwisata', 'Nama Pariwisata', 'required', [
+        $this->form_validation->set_rules('nm_pariwisata', 'Nama Pariwisata', 'required|is_unique[tb_pariwisata.nm_pariwisata]', [
             'required'  => 'Nama Pariwisata Wajib Diisi!',
+            'is_unique' => 'Pariwisata sudah ada'
         ]);
         $this->form_validation->set_rules('alamat', 'Alamat', 'required', [
             'required'  => 'Alamat Wajib Diisi!'
         ]);
-        $this->form_validation->set_rules('id_subkriteria', 'Subkriteria', 'required', [
-            'required'  => 'Opsi Wajib Diisi!'
-        ]);
-
+        $dropdown[''] = '';
+        foreach ($data['kriteria'] as $kr) {
+            $dropdown[$kr['id_kriteria']] = $this->input->post($kr['id_kriteria'], true);
+        }
+        $data['dropdown'] = $dropdown;
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar_desa', $data);

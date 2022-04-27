@@ -21,25 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $no = 1;
-                        foreach ($wisata as $w) : ?>
-                            <tr>
-                                <?php foreach ($nilai as $n) : ?>
-                                    <td><?= $no++; ?></td>
-                                    <td><?= $n['nm_pariwisata']; ?></td>
-                                    <?php foreach ($subkriteria as $sk) : ?>
-                                        <?php if ($sk['id_kriteria'] == $n['id_kriteria']) { ?>
-                                            <td><?= $n['nm_subkriteria']; ?></td>
-                                    <?php }
-                                    endforeach; ?>
-                                <?php endforeach; ?>
-                                <td>
-                                    <a class="btn btn-success" href="<?= base_url('desa/edit_survey/') . $w['id_pariwisata']; ?>"><i class="fas fa-fw fa-edit"></i></a>
-                                    <a class="btn btn-danger" data-toggle="modal" data-target="#hapusModalWis"><i class="fas fa-fw fa-trash"></i></a>
-                                </td>
-                            </tr>
-                        <?php $no++;
-                        endforeach; ?>
+                        
                     </tbody>
                 </table>
             </div>

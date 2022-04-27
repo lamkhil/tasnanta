@@ -30,7 +30,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="<?= base_url('desa/ubah_profile'); ?>">
+                <form method="POST" action="<?= base_url('desa/ubah_profile'); ?>" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>Email</label>
                         <input type="email" class="form-control" name="email" value="<?= $user['email']; ?>" readonly>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="form-group">
                         <label>Foto</label>
-                        <br><img src="<?= base_url('assets/img/profile/') . $user['foto']; ?>" class="rounded" style="width: 100px;">
+                        <br><img  id="fotoprof" src="<?= base_url('assets/img/profile/') . $user['foto']; ?>" class="rounded" style="width: 100px;">
                         <br><input type="file" class="form-control" id="foto" name="foto">
                     </div>
             </div>
@@ -58,3 +58,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    foto.onchange = evt => {
+        const [file] = foto.files
+        if (file) {
+            fotoprof.src = URL.createObjectURL(file)
+        }
+    }
+</script>

@@ -16,8 +16,8 @@
                             <th style="text-align: center; vertical-align: middle;">Waktu</th>
                             <th style="text-align: center; vertical-align: middle;">Nama Pariwisata</th>
                             <th style="text-align: center; vertical-align: middle;">Alamat</th>
-                            <th style="text-align: center; vertical-align: middle;">Status Validasi</th>
-                            <th style="text-align: center; vertical-align: middle;">Aksi</th>
+                            <th style="text-align: center; vertical-align: middle;">Total Poin</th>
+                            <th style="text-align: center; vertical-align: middle;">Build Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,15 +31,14 @@
                             }
                             ?>
                             <tr>
-                                <td style="text-align: center; vertical-align: middle;"><?= $no++; ?></td>
+                                <td><?= $no++; ?></td>
                                 <td><?= explode(" ", $w['tgl'])[0]; ?></td>
                                 <td><?= explode(" ", $w['tgl'])[1]; ?></td>
                                 <td><?= $w['nm_pariwisata']; ?></td>
                                 <td><?= $w['alamat']; ?></td>
-                                <td style="text-align: center; vertical-align: middle;"><?= $w['id_status']; ?>
-                                </td>
+                                <td>0</td>
                                 <td style="text-align: center; vertical-align: middle;">
-                                    <a class="btn btn-info btn-sm" href="<?= base_url('dinas/validasi/') . $w['id_pariwisata']; ?>">Validasi</a>
+                                    <a class="btn btn-info btn-sm" href="<?= base_url('dinas/pemeringkatan/#') ?>"><i class="fas fa-fw fa-envelope"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

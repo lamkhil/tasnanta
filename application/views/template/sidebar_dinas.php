@@ -15,32 +15,39 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Data Master</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="<?= base_url('dinas/pengguna'); ?>">Pengguna</a>
-                    <a class="collapse-item" href="<?= base_url('kriteria'); ?>">Kriteria</a>
-                    <a class="collapse-item" href="<?= base_url('kriteria/tampil_subkriteria'); ?>">Subkriteria</a>
-                </div>
-            </div>
-        </li>
 
         <!-- Nav Item -->
         <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('dinas'); ?>">
+                <i class="fas fa-fw fa-eye"></i>
+                <span>Lihat Data</span></a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link" href="<?= base_url('dinas/tampil_validasi'); ?>">
-                <i class="fas fa-fw fa-table"></i>
+                <i class="fas fa-fw fa-check"></i>
                 <span>Validasi</span></a>
         </li>
 
         <!-- Nav Item -->
         <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('') ?>">
+            <a class="nav-link" href="<?= base_url('dinas/pemeringkatan') ?>">
                 <i class="fas fa-fw fa-table"></i>
-                <span>Penilaian</span></a>
+                <span>Pemeringkatan</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Pengaturan</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="<?= base_url('dinas/pengguna'); ?>">Akun User</a>
+                    <a class="collapse-item" href="<?= base_url('kriteria'); ?>">Data Kriteria</a>
+                    <a class="collapse-item" href="<?= base_url('kriteria/tampil_subkriteria'); ?>">Data Subkriteria</a>
+                </div>
+            </div>
         </li>
 
         <!-- Divider -->
