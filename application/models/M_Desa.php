@@ -66,7 +66,7 @@ class M_Desa extends CI_Model
         return $query->result_array();
     }
     public function getNilaiByPariwisata()
-    {
+    {   
         $this->db->select('*');
         $this->db->from('tb_nilai');
         $this->db->join('tb_pariwisata', 'tb_nilai.id_pariwisata = tb_pariwisata.id_pariwisata', 'inner');
@@ -74,6 +74,20 @@ class M_Desa extends CI_Model
         $this->db->join('tb_subkriteria', 'tb_nilai.id_subkriteria = tb_subkriteria.id_subkriteria', 'inner');
         $query = $this->db->get();
         return $query->result_array();
+    }
+
+    public function getPariwisataWithNilai(){
+        $pariwisata = $this->getWisata();
+        foreach ($pariwisata as $key => $value) {
+            $this->db->select('*');
+            $this->db->from('tb_kriteria');
+            $this->db->join('tb_nilai', 'tb_nilai.kriteria_id = tb_kriteria.id_kriteria', 'inner');
+            $this->db->join('tb_subkriteria', 'tb_nilai.id_subkriteria = tb_subkriteria.id_subkriteria', 'inner');
+            $this->db->where('id_pariwisata', $value['id_pariwisata']);
+            $query = $this->db->get();
+            $pariwisata[$key]['nilai'] = $query->result_array();
+        }
+        return $pariwisata;
     }
 
     public function getNilaiById($id_nilai)

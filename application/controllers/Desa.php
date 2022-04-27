@@ -63,9 +63,7 @@ class desa extends CI_Controller
         $data['wisata'] = $this->M_Desa->getWisata();
         $data['kriteria'] = $this->M_Kriteria->getAllKriteria();
         $data['subkriteria'] = $this->M_Kriteria->getAllSubkriteria();
-        $data['nilai'] = $this->M_Desa->getNilaiByPariwisata();
-
-
+        $data['nilai'] = $this->M_Desa->getPariwisataWithNilai();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar_desa', $data);

@@ -21,7 +21,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        <?php $no = 1;
+                        foreach ($nilai as $n) : ?>
+                            <tr>
+                                <td><?= $no++; ?></td>
+                                <td><?= $n['nm_pariwisata']; ?></td>
+                                <?php foreach ($n['nilai'] as $n2) : ?>
+                                    <td><?= $n2['nm_subkriteria']; ?></td>
+                                <?php endforeach; ?>
+                                <td>
+                                    <a class="btn btn-success" href="<?= base_url('desa/edit_survey/') . $n2['id_pariwisata']; ?>"><i class="fas fa-fw fa-edit"></i></a>
+                                    <a class="btn btn-danger" data-toggle="modal" data-target="#hapusModalWis"><i class="fas fa-fw fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
