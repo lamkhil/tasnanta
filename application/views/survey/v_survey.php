@@ -26,13 +26,32 @@
                             <tr>
                                 <td><?= $no++; ?></td>
                                 <td><?= $n['nm_pariwisata']; ?></td>
-                                <?php foreach ($n['nilai'] as $n2) : ?>
-                                    <td><?= $n2['nm_subkriteria']; ?></td>
-                                <?php endforeach; ?>
-                                <td>
-                                    <a class="btn btn-success" href="<?= base_url('desa/edit_survey/') . $n2['id_pariwisata']; ?>"><i class="fas fa-fw fa-edit"></i></a>
-                                    <a class="btn btn-danger" data-toggle="modal" data-target="#hapusModalWis"><i class="fas fa-fw fa-trash"></i></a>
-                                </td>
+                                <?php foreach ($kriteria as $kr) : ?>
+                                    <?php 
+                                        $is_exist = FALSE;
+                                        foreach ($n['nilai'] as $n2) : ?>
+                                        <?php 
+                                            if ($kr['nm_kriteria'] == $n2['nm_kriteria']) {
+                                                echo('<td>'.$n2['nm_subkriteria'].'</td>');
+                                                $is_exist = TRUE;
+                                            }
+                                            ?>
+                                <?php endforeach; 
+                                if (!$is_exist) {
+                                    echo('<td>Belum ditambah</td>');
+                                }
+                            endforeach; ?>
+                                <?php
+                                    if ($n['id_user']==$user['id_user']) {
+                                        echo(
+                                            '<td><a class="btn btn-success" href="'.base_url('desa/edit_survey/') . $n2['id_pariwisata'].'"><i class="fas fa-fw fa-edit"></i></a>
+                                                <a class="btn btn-danger" data-toggle="modal" data-target="#hapusModalWis"><i class="fas fa-fw fa-trash"></i></a>
+                                            </td>'
+                                        );
+                                    }else{
+                                        echo('<td>Lihat Saja</td>');
+                                    }
+                                ?>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -57,7 +76,7 @@
             </div>
             <div class="modal-footer">
                 <a class="btn btn-secondary" type="button" data-dismiss="modal">Tidak</a>
-                <a class="btn btn-danger" href="<?= base_url('desa/hapus_survey/') . $w['id_pariwisata']; ?>">Ya</a>
+                <a class="btn btn-danger" href="<?= base_url('desa/hapus_survey/') . $n['id_pariwisata']; ?>">Ya</a>
             </div>
         </div>
     </div>

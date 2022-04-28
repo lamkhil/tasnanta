@@ -5,6 +5,8 @@
         </div>
         <div class="card-body">
             <form method="POST" action="<?= base_url('desa/edit_survey/') . $wisata['id_pariwisata']; ?>">
+            
+            <input type="hidden" class="form-control" name="id_user" value="<?= $user['id_user']; ?>">
                 <div class="form-group">
                     <label>Nama Pariwisata</label>
                     <input type="text" class="form-control" name="nm_pariwisata" value="<?= $wisata['nm_pariwisata']; ?>">
@@ -15,6 +17,18 @@
                     <input type="text" class="form-control" name="alamat" value="<?= $wisata['alamat']; ?>">
                     <?= form_error('alamat', '<div class="text-danger small">', '</div>') ?>
                 </div>
+                <?php foreach ($kriteria as $kr) : ?>
+                    <div class="form-group">
+                        <label name="<?= $kr['id_kriteria']; ?>"><?= $kr['nm_kriteria']; ?></label>
+                        <select name="<?= $kr['id_kriteria']; ?>" class="form-control">
+                            <?php foreach ($subkriteria as $sk) : ?>
+                                <?php if ($kr['id_kriteria'] == $sk['id_kriteria']) { ?>
+                                    <option value="<?= $sk['id_subkriteria']; ?>" <?php echo set_select($kr['id_kriteria'],$sk['id_subkriteria'], ( !empty($data) && $data == $sk['id_subkriteria'] ? TRUE : FALSE )); ?>><?= $sk['nm_subkriteria']; ?></option>
+                            <?php }
+                            endforeach; ?>
+                        </select>
+                    </div>
+                <?php endforeach ?>
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </form>
         </div>

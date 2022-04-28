@@ -65,6 +65,7 @@ class desa extends CI_Controller
         $data['subkriteria'] = $this->M_Kriteria->getAllSubkriteria();
         $data['nilai'] = $this->M_Desa->getPariwisataWithNilai();
 
+        
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar_desa', $data);
         $this->load->view('survey/v_survey', $data);
@@ -77,7 +78,6 @@ class desa extends CI_Controller
         $data['user'] = $this->M_Desa->getDataByEmail();
         $data['kriteria'] = $this->M_Kriteria->getAllKriteria();
         $data['subkriteria'] = $this->M_Kriteria->getAllSubkriteria();
-        $data['nilai'] = $this->M_Desa->getNilaiByPariwisata();
 
         $this->form_validation->set_rules('nm_pariwisata', 'Nama Pariwisata', 'required|is_unique[tb_pariwisata.nm_pariwisata]', [
             'required'  => 'Nama Pariwisata Wajib Diisi!',
@@ -114,7 +114,9 @@ class desa extends CI_Controller
     {
         $data['title'] = 'Edit Data Pariwisata';
         $data['user'] = $this->M_Desa->getDataByEmail();
-        $data['wisata'] = $this->M_Desa->getWisataById($id_pariwisata);
+        $data['wisata'] = $this->M_Desa->getPariwisataWithNilaiById($id_pariwisata);
+        $data['kriteria'] = $this->M_Kriteria->getAllKriteria();
+        $data['subkriteria'] = $this->M_Kriteria->getAllSubkriteria();
 
         $this->form_validation->set_rules('nm_pariwisata', 'Nama Pariwisata', 'required', [
             'required'  => 'Nama Pariwisata Wajib Diisi!',
@@ -129,7 +131,7 @@ class desa extends CI_Controller
             $this->load->view('survey/edit_survey', $data);
             $this->load->view('template/footer');
         } else {
-            $this->M_Desa->editDataWisata($id_pariwisata);
+            $this->M_Desa->editDataWisataWithNilai($id_pariwisata);
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">Pengguna berhasil diubah!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('desa/tampil_survey');
         }

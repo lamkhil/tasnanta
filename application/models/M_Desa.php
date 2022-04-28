@@ -89,10 +89,65 @@ class M_Desa extends CI_Model
         }
         return $pariwisata;
     }
+    public function getPariwisataWithNilaiById($id_pariwisata){
+        $pariwisata = $this->getWisataById($id_pariwisata);
+        $this->db->select('*');
+            $this->db->from('tb_kriteria');
+            $this->db->join('tb_nilai', 'tb_nilai.kriteria_id = tb_kriteria.id_kriteria', 'inner');
+            $this->db->join('tb_subkriteria', 'tb_nilai.id_subkriteria = tb_subkriteria.id_subkriteria', 'inner');
+            $this->db->where('id_pariwisata', $id_pariwisata);
+            $query = $this->db->get();
+            $pariwisata['nilai'] = $query->result_array();
+        return $pariwisata;
+    }
 
     public function getNilaiById($id_nilai)
     {
         return $this->db->get_where('tb_nilai', ['id_nilai' => $id_nilai])->row_array();
+    }
+
+    public function editDataWisataWithNilai($id_pariwisata)
+    {
+        $nm_pariwisata = $this->input->post('nm_pariwisata', true);
+        $alamat = $this->input->post('alamat', true);
+        $id_user = $this->input->post('id_user', true);
+
+        $data = array(
+            'nm_pariwisata'     => $nm_pariwisata,
+            'alamat'            => $alamat,
+            'id_user'           => $id_user
+        );
+
+        $this->db->where('id_pariwisata', $id_pariwisata);
+        $this->db->update('tb_pariwisata', $data);
+        // tambah nilai
+        $query = $this->db->get('tb_kriteria');
+        $kriteria = $query->result_array();
+        $pariwisataWithNilai = $this->getPariwisataWithNilaiById($id_pariwisata);
+
+        foreach ($kriteria as $kr) {
+            $is_exist = FALSE;
+            foreach ($pariwisataWithNilai['nilai'] as $n) {
+                if ($kr['nm_kriteria'] == $n['nm_kriteria']) {
+                    $is_exist = TRUE;
+                    $nilai = array(
+                        'id_pariwisata'     => $id_pariwisata,
+                        'kriteria_id'       => $kr['id_kriteria'],
+                        'id_subkriteria'    => $this->input->post($kr['id_kriteria'], true)
+                    );
+                    $this->db->where('id_nilai', $n['id_nilai']);
+                    $this->db->update('tb_nilai', $nilai);
+                }
+            }
+            if (!$is_exist) {
+                $nilai = array(
+                    'id_pariwisata'     => $id_pariwisata,
+                    'kriteria_id'       => $kr['id_kriteria'],
+                    'id_subkriteria'    => $this->input->post($kr['id_kriteria'], true)
+                );
+                $this->db->insert('tb_nilai', $nilai);
+            }
+        }
     }
 
     public function tambahDataWisata()
