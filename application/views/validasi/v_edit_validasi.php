@@ -4,11 +4,10 @@
             <h6 class="m-0 font-weight-bold text-primary"><?= $title; ?></h6>
         </div>
         <div class="card-body">
-            <form method="POST" action="<?= base_url('dinas/validasi/') . $wisata['id_pariwisata']; ?>">
+            <form method="POST" action="<?= base_url('dinas/edit_validasi/') . $wisata['id_pariwisata']; ?>">
                 <div class="form-group">
                     <label>Status</label>
                     <select name="id_status" class="form-control">
-                        <option value=""></option>
                         <?php
                         if ($wisata['status'] == 0) {
                             $wisata['status'] = 'Tidak Valid';

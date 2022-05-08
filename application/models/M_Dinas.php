@@ -73,6 +73,16 @@ class M_Dinas extends CI_model
     public function edit_status($id_pariwisata)
     {
         $id_status  = $this->input->post('id_status', TRUE);
+        $data = array(
+            'id_status'  => $id_status,
+        );
+        $this->db->where('id_pariwisata', $id_pariwisata);
+        $this->db->update('tb_pariwisata', $data);
+    }
+
+    public function validate_status($id_pariwisata)
+    {
+        $id_status  = 1;
 
         $data = array(
             'id_status'  => $id_status,

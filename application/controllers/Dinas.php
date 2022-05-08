@@ -168,7 +168,7 @@ class dinas extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function validasi($id_pariwisata)
+    public function edit_validasi($id_pariwisata)
     {
         $data['title'] = 'Validasi';
         $data['admin'] = $this->M_Dinas->getDataDinas();
@@ -187,4 +187,16 @@ class dinas extends CI_Controller
             redirect('dinas/tampil_validasi');
         }
     }
+
+    public function validasi($id_pariwisata)
+    {
+        $data['title'] = 'Validasi';
+        $data['admin'] = $this->M_Dinas->getDataDinas();
+        $data['wisata'] = $this->M_Desa->getWisataById($id_pariwisata);
+
+        $this->M_Dinas->validate_status($id_pariwisata);
+        $this->session->set_flashdata('pesan', '<div class="alert alert-info alert-dismissible fade show" role="alert">Status validasi data telah diubah!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        redirect('dinas/tampil_validasi');
+    }
+
 }

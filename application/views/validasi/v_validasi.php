@@ -38,8 +38,9 @@
                                 <td><?= $w['alamat']; ?></td>
                                 <td style="text-align: center; vertical-align: middle;"><?= $w['id_status']; ?>
                                 </td>
-                                <td style="text-align: center; vertical-align: middle;">
+                                <td style="text-align: center; vertical-align: middle; white-space:nowrap">
                                     <a class="btn btn-info btn-sm" href="<?= base_url('dinas/validasi/') . $w['id_pariwisata']; ?>">Validasi</a>
+                                    <a class="btn btn-info btn-sm" href="<?= base_url('dinas/edit_validasi/') . $w['id_pariwisata']; ?>"><i class="fas fa-fw fa-edit"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

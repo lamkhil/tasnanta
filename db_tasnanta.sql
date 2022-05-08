@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Apr 2022 pada 15.34
+-- Waktu pembuatan: 09 Bulan Mei 2022 pada 01.13
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 8.1.2
 
@@ -43,7 +43,8 @@ INSERT INTO `tb_kriteria` (`id_kriteria`, `nm_kriteria`, `j_kriteria`, `bobot_kr
 (2, 'Listrik', 'Benefit', 20),
 (3, 'Toilet', 'Cost', 20),
 (17, 'Mushola', 'Cost', 10),
-(18, 'Uang', 'Cost', 10);
+(18, 'Uang', 'Cost', 10),
+(19, 'Motor', 'Cost', 12);
 
 -- --------------------------------------------------------
 
@@ -83,10 +84,26 @@ CREATE TABLE `tb_nilai` (
 
 INSERT INTO `tb_nilai` (`id_nilai`, `id_pariwisata`, `kriteria_id`, `id_subkriteria`) VALUES
 (5, 12, 1, 1),
-(6, 12, 2, 8),
-(7, 12, 3, 10),
-(8, 12, 17, 14),
-(9, 12, 18, 16);
+(6, 12, 2, 4),
+(7, 12, 3, 7),
+(8, 12, 17, 12),
+(9, 12, 18, 16),
+(15, 12, 19, 17);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_notif`
+--
+
+CREATE TABLE `tb_notif` (
+  `id` int(255) NOT NULL,
+  `from_user_id` int(255) NOT NULL,
+  `user_id` int(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `created_at` datetime(6) NOT NULL DEFAULT current_timestamp(6)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -161,7 +178,8 @@ INSERT INTO `tb_subkriteria` (`id_subkriteria`, `nm_subkriteria`, `nilai`, `id_k
 (13, 'Banyak', 1, 17),
 (14, 'Sedang', 2, 17),
 (15, 'Tidak Ada', 0, 17),
-(16, 'Sedikit', 1, 18);
+(16, 'Sedikit', 1, 18),
+(17, 'Sedikit', 12, 19);
 
 -- --------------------------------------------------------
 
@@ -213,6 +231,14 @@ ALTER TABLE `tb_nilai`
   ADD KEY `id_subkriteria` (`id_subkriteria`);
 
 --
+-- Indeks untuk tabel `tb_notif`
+--
+ALTER TABLE `tb_notif`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `from_user_id` (`from_user_id`),
+  ADD KEY `to_user_id` (`user_id`);
+
+--
 -- Indeks untuk tabel `tb_pariwisata`
 --
 ALTER TABLE `tb_pariwisata`
@@ -249,25 +275,31 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT untuk tabel `tb_kriteria`
 --
 ALTER TABLE `tb_kriteria`
-  MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_nilai`
 --
 ALTER TABLE `tb_nilai`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_notif`
+--
+ALTER TABLE `tb_notif`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_pariwisata`
 --
 ALTER TABLE `tb_pariwisata`
-  MODIFY `id_pariwisata` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_pariwisata` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_subkriteria`
 --
 ALTER TABLE `tb_subkriteria`
-  MODIFY `id_subkriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_subkriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_user`
@@ -286,6 +318,13 @@ ALTER TABLE `tb_nilai`
   ADD CONSTRAINT `tb_nilai_ibfk_1` FOREIGN KEY (`kriteria_id`) REFERENCES `tb_kriteria` (`id_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tb_nilai_ibfk_2` FOREIGN KEY (`id_pariwisata`) REFERENCES `tb_pariwisata` (`id_pariwisata`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tb_nilai_ibfk_3` FOREIGN KEY (`id_subkriteria`) REFERENCES `tb_subkriteria` (`id_subkriteria`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `tb_notif`
+--
+ALTER TABLE `tb_notif`
+  ADD CONSTRAINT `from_user_id` FOREIGN KEY (`from_user_id`) REFERENCES `tb_user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `to_user_id` FOREIGN KEY (`user_id`) REFERENCES `tb_user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `tb_pariwisata`
