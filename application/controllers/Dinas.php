@@ -114,6 +114,7 @@ class dinas extends CI_Controller
         $data['title'] = 'Edit Data Pengguna';
         $data['admin'] = $this->M_Dinas->getDataDinas();
         $data['pengguna'] = $this->M_Dinas->getUserById($id_user);
+        $data['argument'] = $data['pengguna']['id_level'] == 1?'dinas':'desa';
 
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', [
             'required'  => 'Email Wajib Diisi!',
@@ -133,7 +134,7 @@ class dinas extends CI_Controller
         } else {
             $this->M_Dinas->edit_user($id_user);
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">Pengguna berhasil diubah!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            redirect('dinas/pengguna');
+            redirect('dinas/pengguna/'.$data['argument']);
         }
     }
 

@@ -11,7 +11,7 @@
                     <?= form_error('email', '<div class="text-danger small">', '</div>') ?>
                 </div>
                 <div class="form-group">
-                    <label><?=$argument == 'desa'?"Nama Desa":"Username"?></label>
+                    <label>Username</label>
                     <input type="text" class="form-control" name="username" value="<?= set_value('username') ?>">
                     <?= form_error('username', '<div class="text-danger small">', '</div>') ?>
                 </div>
@@ -19,6 +19,11 @@
                     <label>Nomor Telepon</label>
                     <input type="text" class="form-control" name="telp" value="<?= set_value('telp') ?>">
                     <?= form_error('telp', '<div class="text-danger small">', '</div>') ?>
+                </div>
+                <div class="form-group">
+                    <label><?=$argument == 'desa'? 'Nama Desa':'Nama Lengkap' ?></label>
+                    <input type="text" class="form-control" name="nama_lengkap" value="<?= set_value('nama_lengkap') ?>">
+                    <?= form_error('nama_lengkap', '<div class="text-danger small">', '</div>') ?>
                 </div>
                 <div class="form-group">
                     <label>Password</label>

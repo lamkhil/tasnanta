@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 09 Bulan Mei 2022 pada 01.13
+-- Waktu pembuatan: 09 Bulan Mei 2022 pada 18.52
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 8.1.2
 
@@ -39,12 +39,8 @@ CREATE TABLE `tb_kriteria` (
 --
 
 INSERT INTO `tb_kriteria` (`id_kriteria`, `nm_kriteria`, `j_kriteria`, `bobot_kriteria`) VALUES
-(1, 'Pengunjung', 'Cost', 50),
 (2, 'Listrik', 'Benefit', 20),
-(3, 'Toilet', 'Cost', 20),
-(17, 'Mushola', 'Cost', 10),
-(18, 'Uang', 'Cost', 10),
-(19, 'Motor', 'Cost', 12);
+(17, 'Mushola', 'Cost', 10);
 
 -- --------------------------------------------------------
 
@@ -83,12 +79,8 @@ CREATE TABLE `tb_nilai` (
 --
 
 INSERT INTO `tb_nilai` (`id_nilai`, `id_pariwisata`, `kriteria_id`, `id_subkriteria`) VALUES
-(5, 12, 1, 1),
-(6, 12, 2, 4),
-(7, 12, 3, 7),
-(8, 12, 17, 12),
-(9, 12, 18, 16),
-(15, 12, 19, 17);
+(16, 15, 2, 8),
+(17, 15, 17, 13);
 
 -- --------------------------------------------------------
 
@@ -126,7 +118,7 @@ CREATE TABLE `tb_pariwisata` (
 --
 
 INSERT INTO `tb_pariwisata` (`id_pariwisata`, `id_user`, `tgl`, `nm_pariwisata`, `alamat`, `id_status`, `built_status`) VALUES
-(12, 13, '2022-04-27 20:00:27', 'Wisata Desa Penari', 'Jl. Kertoraharjo dalam no. 10 kel. Ketawang kec. Lowokwaru', 0, 0);
+(15, 13, '2022-05-09 23:38:06', 'Wisata Desa Penyanyi', 'Jl. Kertoraharjo dalam no. 10 kel. Ketawang kec. Lowokwaru', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -165,21 +157,13 @@ CREATE TABLE `tb_subkriteria` (
 --
 
 INSERT INTO `tb_subkriteria` (`id_subkriteria`, `nm_subkriteria`, `nilai`, `id_kriteria`) VALUES
-(1, 'Sedikit', 1, 1),
-(2, 'Sedang', 2, 1),
-(3, 'Banyak', 3, 1),
 (4, 'Banyak', 1, 2),
-(7, 'Banyak', 1, 3),
 (8, 'Sedang', 2, 2),
 (9, 'Sedikit', 3, 2),
-(10, 'Sedang', 2, 3),
-(11, 'Sedikit', 3, 3),
 (12, 'Sedikit', 3, 17),
 (13, 'Banyak', 1, 17),
 (14, 'Sedang', 2, 17),
-(15, 'Tidak Ada', 0, 17),
-(16, 'Sedikit', 1, 18),
-(17, 'Sedikit', 12, 19);
+(15, 'Tidak Ada', 0, 17);
 
 -- --------------------------------------------------------
 
@@ -189,7 +173,8 @@ INSERT INTO `tb_subkriteria` (`id_subkriteria`, `nm_subkriteria`, `nilai`, `id_k
 
 CREATE TABLE `tb_user` (
   `id_user` int(50) NOT NULL,
-  `username` varchar(100) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `nama_lengkap` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `telp` varchar(50) NOT NULL,
@@ -201,9 +186,9 @@ CREATE TABLE `tb_user` (
 -- Dumping data untuk tabel `tb_user`
 --
 
-INSERT INTO `tb_user` (`id_user`, `username`, `email`, `password`, `telp`, `id_level`, `foto`) VALUES
-(13, 'Desa Kenari', 'tasnanta@gmail.com', '$2y$10$lJ1Is3p2d2WOX6lguWkR2e/PFlHEuB.TVZSx3fnyEOITfGz0IeSme', '0800998', 2, 'tasnanta@gmailcom.png'),
-(14, 'tasnanta', 'tasnanta2@gmail.com', '$2y$10$ewJmihRdDSYZ8A.2dlPSnOE4ylUT8dzPes/qSN6tnGrIjQEM1As8m', '09890', 1, 'tasnanta2@gmailcom.jpeg');
+INSERT INTO `tb_user` (`id_user`, `username`, `nama_lengkap`, `email`, `password`, `telp`, `id_level`, `foto`) VALUES
+(13, 'tasnanta', 'Desa Kenariy', 'tasnanta@gmail.com', '$2y$10$lJ1Is3p2d2WOX6lguWkR2e/PFlHEuB.TVZSx3fnyEOITfGz0IeSme', '0800998', 2, 'tasnanta@gmailcom.png'),
+(15, 'tasnanta2', 'Tasnanta Admin', 'tasnanta2@gmail.com', '$2y$10$ewJmihRdDSYZ8A.2dlPSnOE4ylUT8dzPes/qSN6tnGrIjQEM1As8m', '09890', 1, 'tasnanta2@gmailcom.jpeg');
 
 --
 -- Indexes for dumped tables
@@ -265,6 +250,7 @@ ALTER TABLE `tb_subkriteria`
 --
 ALTER TABLE `tb_user`
   ADD PRIMARY KEY (`id_user`),
+  ADD UNIQUE KEY `username` (`username`),
   ADD KEY `id_level` (`id_level`);
 
 --
@@ -281,7 +267,7 @@ ALTER TABLE `tb_kriteria`
 -- AUTO_INCREMENT untuk tabel `tb_nilai`
 --
 ALTER TABLE `tb_nilai`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_notif`
@@ -293,7 +279,7 @@ ALTER TABLE `tb_notif`
 -- AUTO_INCREMENT untuk tabel `tb_pariwisata`
 --
 ALTER TABLE `tb_pariwisata`
-  MODIFY `id_pariwisata` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_pariwisata` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_subkriteria`
@@ -305,7 +291,7 @@ ALTER TABLE `tb_subkriteria`
 -- AUTO_INCREMENT untuk tabel `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_user` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

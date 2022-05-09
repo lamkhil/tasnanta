@@ -45,7 +45,7 @@
                                     if ($n['id_user']==$user['id_user']) {
                                         echo(
                                             '<td><a class="btn btn-success" href="'.base_url('desa/edit_survey/') . $n2['id_pariwisata'].'"><i class="fas fa-fw fa-edit"></i></a>
-                                                <a class="btn btn-danger" data-toggle="modal" data-target="#hapusModalWis"><i class="fas fa-fw fa-trash"></i></a>
+                                                <a class="btn btn-danger" data-toggle="modal" data-target="#hapusModalWis'. $n2['id_pariwisata'].'"><i class="fas fa-fw fa-trash"></i></a>
                                             </td>'
                                         );
                                     }else{
@@ -63,7 +63,8 @@
 <!-- /.container-fluid -->
 
 <!-- Hapus Modal-->
-<div class="modal fade" id="hapusModalWis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<?php foreach ($nilai as $n) : ?>
+    <div class="modal fade" id=<?="hapusModalWis".$n['id_pariwisata']?> tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -81,3 +82,4 @@
         </div>
     </div>
 </div>
+<?php endforeach; ?>

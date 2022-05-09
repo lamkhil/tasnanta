@@ -15,6 +15,7 @@
                             <th>No</th>
                             <th>Username</th>
                             <th>Email</th>
+                            <th>Nama</th>
                             <th>Role</th>
                             <th>Nomor Telepon</th>
                             <th>Aksi</th>
@@ -32,6 +33,7 @@
                                 <td><?= $no; ?></td>
                                 <td><?= $p['username']; ?></td>
                                 <td><?= $p['email']; ?></td>
+                                <td><?= $p['nama_lengkap']; ?></td>
                                 <td>Dinas</td>
                                 <td><?= $p['telp']; ?></td>
                                 <td>

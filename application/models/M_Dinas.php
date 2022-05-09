@@ -36,6 +36,7 @@ class M_Dinas extends CI_model
             'telp'      => $this->input->post('telp', TRUE),
             'password'  => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
             'id_level'  => $this->input->post('id_level', TRUE),
+            'nama_lengkap'  => $this->input->post('nama_lengkap', TRUE),
             'foto'      => 'default.png',
         );
 
@@ -47,19 +48,15 @@ class M_Dinas extends CI_model
         $email     = $this->input->post('email', TRUE);
         $username  = $this->input->post('username', TRUE);
         $telp      = $this->input->post('telp', TRUE);
-        $id_level  = $this->input->post('id_level', TRUE);
+        $nama  = $this->input->post('nama_lengkap', TRUE);
 
         $data = [
             'email'     => $email,
             'username'  => $username,
             'telp'      => $telp,
-            'id_level'  => $id_level,
+            'nama_lengkap'  => $nama,
         ];
 
-        $this->db->set('email', $email);
-        $this->db->set('username', $username);
-        $this->db->set('telp', $telp);
-        $this->db->set('id_level', $id_level);
         $this->db->where('id_user', $id_user);
         $this->db->update('tb_user', $data);
     }

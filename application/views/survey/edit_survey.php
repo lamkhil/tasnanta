@@ -17,18 +17,22 @@
                     <input type="text" class="form-control" name="alamat" value="<?= $wisata['alamat']; ?>">
                     <?= form_error('alamat', '<div class="text-danger small">', '</div>') ?>
                 </div>
-                <?php foreach ($kriteria as $kr) : ?>
-                    <div class="form-group">
+                <?php foreach ($wisata['nilai'] as $nilai) :?>
+                    <?php foreach ($kriteria as $kr) : ?>
+                        <?php if ($nilai['id_kriteria'] == $kr['id_kriteria']) {?>
+                            <div class="form-group">
                         <label name="<?= $kr['id_kriteria']; ?>"><?= $kr['nm_kriteria']; ?></label>
                         <select name="<?= $kr['id_kriteria']; ?>" class="form-control">
                             <?php foreach ($subkriteria as $sk) : ?>
                                 <?php if ($kr['id_kriteria'] == $sk['id_kriteria']) { ?>
-                                    <option value="<?= $sk['id_subkriteria']; ?>" <?php echo set_select($kr['id_kriteria'],$sk['id_subkriteria'], ( !empty($data) && $data == $sk['id_subkriteria'] ? TRUE : FALSE )); ?>><?= $sk['nm_subkriteria']; ?></option>
+                                    <option value="<?= $sk['id_subkriteria']; ?>" <?= set_select($kr['id_kriteria'], $sk['id_subkriteria'], $nilai['id_subkriteria'] == $sk['id_subkriteria']); ?>><?= $sk['nm_subkriteria']; ?></option>
                             <?php }
                             endforeach; ?>
                         </select>
                     </div>
+                        <?php } ?>
                 <?php endforeach ?>
+            <?php endforeach; ?>
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </form>
         </div>
