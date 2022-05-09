@@ -7,7 +7,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Data Pengguna Dinas</h6>
         </div>
         <div class="card-body">
-            <a class="btn btn-primary" href="<?= base_url('dinas/tambah_pengguna'); ?>"><i class="fas fa-fw fa-plus"></i> Tambah Pengguna</a>
+            <a class="btn btn-primary" href="<?= base_url('dinas/tambah_pengguna/dinas'); ?>"><i class="fas fa-fw fa-plus"></i> Tambah Pengguna</a>
             <div class="table-responsive my-3">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>

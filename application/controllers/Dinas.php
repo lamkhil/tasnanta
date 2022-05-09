@@ -75,12 +75,13 @@ class dinas extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function tambah_pengguna()
+    public function tambah_pengguna($argument)
     {
-        $data['title'] = 'Tambah Pengguna';
+        $data['title'] = 'Tambah Pengguna '.ucfirst($argument);
         $data['admin'] = $this->M_Dinas->getDataDinas();
         $data['pengguna'] = $this->M_Dinas->getDataUser();
         $data['role'] = $this->M_Dinas->getLevel();
+        $data['argument'] = $argument;
 
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
             'required'  => 'Email Wajib Diisi!',
