@@ -61,7 +61,7 @@ class dinas extends CI_Controller
         }
     }
 
-    public function pengguna($role)
+    public function pengguna($role = 'desa')
     {
         
         $data['title'] = 'Pengguna';
@@ -75,7 +75,7 @@ class dinas extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function tambah_pengguna($argument)
+    public function tambah_pengguna($argument = 'desa')
     {
         $data['title'] = 'Tambah Pengguna '.ucfirst($argument);
         $data['admin'] = $this->M_Dinas->getDataDinas();
@@ -105,7 +105,7 @@ class dinas extends CI_Controller
         } else {
             $this->M_Dinas->tambah_user();
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">Pengguna berhasil ditambahkan!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            redirect('dinas/pengguna');
+            redirect('dinas/pengguna/'.$argument);
         }
     }
 
