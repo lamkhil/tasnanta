@@ -4,7 +4,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Data Pengguna Dinas</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Data Pengguna Desa</h6>
         </div>
         <div class="card-body">
             <a class="btn btn-primary" href="<?= base_url('dinas/tambah_pengguna'); ?>"><i class="fas fa-fw fa-plus"></i> Tambah Pengguna</a>
@@ -13,7 +13,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Username</th>
+                            <th>Nama Desa</th>
                             <th>Email</th>
                             <th>Role</th>
                             <th>Nomor Telepon</th>
@@ -24,7 +24,7 @@
                         <?php $no = 1; ?>
                         <?php foreach ($pengguna as $p) : ?>
                             <?php
-                            if ($p['id_level'] !=1) {
+                            if ($p['id_level'] ==1) {
                                 continue;
                             }
                             ?>

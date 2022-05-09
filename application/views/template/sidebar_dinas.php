@@ -43,7 +43,8 @@
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="<?= base_url('dinas/pengguna'); ?>">Akun User</a>
+                    <a class="collapse-item" href="<?= base_url('dinas/pengguna/desa'); ?>">Akun Desa</a>
+                    <a class="collapse-item" href="<?= base_url('dinas/pengguna/dinas'); ?>">Akun Dinas</a>
                     <a class="collapse-item" href="<?= base_url('kriteria'); ?>">Data Kriteria</a>
                     <a class="collapse-item" href="<?= base_url('kriteria/tampil_subkriteria'); ?>">Data Subkriteria</a>
                 </div>

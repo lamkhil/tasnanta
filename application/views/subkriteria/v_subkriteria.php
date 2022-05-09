@@ -29,7 +29,7 @@
                                 <td><?= $sktr['nilai']; ?></td>
                                 <td>
                                     <a class="btn btn-success" href="<?= base_url('kriteria/edit_subkriteria/') . $sktr['id_subkriteria']; ?>"><i class="fas fa-fw fa-edit"></i></a>
-                                    <a class="btn btn-danger" data-toggle="modal" data-target="#hapusModalSub"><i class="fas fa-fw fa-trash"></i></a>
+                                    <a class="btn btn-danger" data-toggle="modal" data-target=<?="#hapusModalSub". $sktr['id_subkriteria']; ?>><i class="fas fa-fw fa-trash"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -42,7 +42,8 @@
 <!-- /.container-fluid -->
 
 <!-- Hapus Modal-->
-<div class="modal fade" id="hapusModalSub" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<?php foreach ($subkriteria as $sktr) : ?>
+<div class="modal fade" id=<?= "hapusModalSub". $sktr['id_subkriteria']; ?> tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -60,3 +61,4 @@
         </div>
     </div>
 </div>
+<?php endforeach; ?>

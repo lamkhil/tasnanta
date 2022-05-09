@@ -30,7 +30,7 @@
                                 <td><?= $ktr['bobot_kriteria']; ?> %</td>
                                 <td>
                                     <a class="btn btn-success" href="<?= base_url('kriteria/edit_kriteria/' . $ktr['id_kriteria']); ?>"><i class="fas fa-fw fa-edit"></i></a>
-                                    <a class="btn btn-danger" data-toggle="modal" data-target="#hapusModalKtr"><i class="fas fa-fw fa-trash"></i></a>
+                                    <a class="btn btn-danger" data-toggle="modal" data-target=<?="#hapusModalKtr".$ktr['id_kriteria']?> ><i class="fas fa-fw fa-trash"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -43,7 +43,8 @@
 <!-- /.container-fluid -->
 
 <!-- Hapus Modal-->
-<div class="modal fade" id="hapusModalKtr" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<?php foreach ($kriteria as $ktr) : ?>
+<div class="modal fade" id=<?="hapusModalKtr".$ktr['id_kriteria']?> tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -61,3 +62,4 @@
         </div>
     </div>
 </div>
+<?php endforeach; ?>

@@ -61,8 +61,9 @@ class dinas extends CI_Controller
         }
     }
 
-    public function pengguna()
+    public function pengguna($role)
     {
+        
         $data['title'] = 'Pengguna';
         $data['pengguna'] = $this->M_Dinas->getDataUser();
         $data['role'] = $this->M_Dinas->getLevel();
@@ -70,7 +71,7 @@ class dinas extends CI_Controller
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar_dinas', $data);
-        $this->load->view('pengguna/v_user', $data);
+        $role == "desa" ? $this->load->view('pengguna/v_user_desa', $data):$this->load->view('pengguna/v_user', $data);
         $this->load->view('template/footer');
     }
 
