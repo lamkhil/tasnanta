@@ -167,7 +167,7 @@ class M_Dinas extends CI_model
         return $max;
     }
 
-    private function get_saw(){
+    public function get_saw(){
         $pariwisata = $this->getPariwisataWithNilai();
         foreach ($pariwisata as $key => $value) {
             foreach ($pariwisata[$key]['nilai'] as $key2 => $value2) {

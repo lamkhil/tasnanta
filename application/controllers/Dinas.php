@@ -1,5 +1,5 @@
 <?php
-
+//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
 class dinas extends CI_Controller
 {
     public function __construct()
