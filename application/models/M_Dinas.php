@@ -167,7 +167,7 @@ class M_Dinas extends CI_model
         return $max;
     }
 
-    public function get_saw(){
+    public   function get_saw(){
         $pariwisata = $this->getPariwisataWithNilai();
         foreach ($pariwisata as $key => $value) {
             foreach ($pariwisata[$key]['nilai'] as $key2 => $value2) {
@@ -178,7 +178,8 @@ class M_Dinas extends CI_model
                 if ($value2['j_kriteria'] == 'Cost') {
                     $min = $this->get_min($arr);
                     $result = $min/$value2['nilai'];
-                    $pariwisata[$key]['saw'][$value2['id_kriteria']] = $result;
+                    $pariwisata[$key]['saw'][$value2['id_kriteria']]['nilai'] = $result;
+                    $pariwisata[$key]['saw'][$value2['id_kriteria']]['bobot'] = $value2['bobot_kriteria'];
                 } else {
                     $max = $this->get_max($arr);
                     $result = $value2['nilai']/$max;
