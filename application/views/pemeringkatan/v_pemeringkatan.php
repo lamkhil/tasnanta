@@ -36,7 +36,7 @@
                                 <td><?= explode(" ", $w['tgl'])[1]; ?></td>
                                 <td><?= $w['nm_pariwisata']; ?></td>
                                 <td><?= $w['alamat']; ?></td>
-                                <td><?= $w['total_saw']; ?></td>
+                                <td><?= round($w['total_saw'],2); ?></td>
                                 <td style="text-align: center; vertical-align: middle;">
                                     <a class="btn btn-info btn-sm" href="<?= base_url('dinas/pemeringkatan/#') ?>"><i class="fas fa-fw fa-envelope"></i></a>
                                 </td>
