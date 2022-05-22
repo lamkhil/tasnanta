@@ -202,4 +202,6 @@ class dinas extends CI_Controller
         redirect('dinas/tampil_validasi');
     }
 
+    
+
 }

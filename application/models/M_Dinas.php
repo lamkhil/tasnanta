@@ -126,4 +126,28 @@ class M_Dinas extends CI_model
         $this->db->where('email', $email);
         $this->db->update('tb_user', $data);
     }
+
+    private function get_min(array $array){
+        $min = $array[0];
+        for ($i=0; $i < count($array); $i++) { 
+            if ($min > $array[$i]) {
+                $min = $array[$i];
+            }
+        }
+        return $min;
+    }
+
+    private function get_max(array $array){
+        $max = $array[0];
+        for ($i=0; $i < count($array); $i++) { 
+            if ($max < $array[$i]) {
+                $max = $array[$i];
+            }
+        }
+        return $max;
+    }
+
+    private function get_saw(){
+        
+    }
 }
