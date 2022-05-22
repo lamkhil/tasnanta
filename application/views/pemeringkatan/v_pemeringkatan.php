@@ -50,9 +50,8 @@
 </div>
 
 <script>
-$('#dataTable').DataTable();
-$(document).ready(function () {
-  $('#dataTable').DataTable({
+$('#dataTable').DataTable(
+    {
     "aaSorting": [],
     columnDefs: [{
     orderable: false,
@@ -78,8 +77,7 @@ $(document).ready(function () {
     orderable: false,
     targets: 6
     }]
-  });
-    $('.dataTables_length').addClass('bs-select');
-});
+  }
+);
 </script>
 <!-- /.container-fluid -->
