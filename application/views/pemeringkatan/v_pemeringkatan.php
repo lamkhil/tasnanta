@@ -48,4 +48,8 @@
         </div>
     </div>
 </div>
+
+<script>
+$('#sortTable').DataTable();
+</script>
 <!-- /.container-fluid -->
