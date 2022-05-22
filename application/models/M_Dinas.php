@@ -194,7 +194,6 @@ class M_Dinas extends CI_model
                 $pariwisata[$key]['total_saw'] += $result;
             }
         }
-        echo(json_encode($pariwisata));
         return $pariwisata;
     }
 }
