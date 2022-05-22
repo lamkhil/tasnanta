@@ -51,5 +51,35 @@
 
 <script>
 $('#dataTable').DataTable();
+$(document).ready(function () {
+  $('#dataTable').DataTable({
+    "aaSorting": [],
+    columnDefs: [{
+    orderable: false,
+    targets: 0
+    },
+    {
+    orderable: false,
+    targets: 1
+    },
+    {
+    orderable: false,
+    targets: 2
+    },
+    {
+    orderable: false,
+    targets: 3
+    },
+    {
+    orderable: false,
+    targets: 4
+    },
+    {
+    orderable: false,
+    targets: 6
+    }]
+  });
+    $('.dataTables_length').addClass('bs-select');
+});
 </script>
 <!-- /.container-fluid -->
