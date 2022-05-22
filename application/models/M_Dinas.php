@@ -144,7 +144,6 @@ class M_Dinas extends CI_model
             $query = $this->db->get();
             $pariwisata[$key]['nilai'] = $query->result_array();
         }
-        echo(json_encode($pariwisata));
         return $pariwisata;
     }
 
@@ -169,6 +168,32 @@ class M_Dinas extends CI_model
     }
 
     private function get_saw(){
-        
+        $pariwisata = $this->getPariwisataWithNilai();
+        foreach ($pariwisata as $key => $value) {
+            foreach ($pariwisata[$key]['nilai'] as $key2 => $value2) {
+                $arr = array();
+                foreach ($pariwisata as $key3 => $value3) {
+                    $arr[] = $value3['nilai'][$key2]['nilai'];
+                }
+                if ($value2['j_kriteria'] == 'Cost') {
+                    $min = $this->get_min($arr);
+                    $result = $min/$value2['nilai'];
+                    $pariwisata[$key]['saw'][$value2['id_kriteria']] = $result;
+                } else {
+                    $max = $this->get_max($arr);
+                    $result = $value2['nilai']/$max;
+                    $pariwisata[$key]['saw'][$value2['id_kriteria']]['nilai'] = $result;
+                    $pariwisata[$key]['saw'][$value2['id_kriteria']]['bobot'] = $value2['bobot_kriteria'];
+                }
+            }
+            $arr = array();
+            $pariwisata[$key]['total_saw'] = 0;
+            foreach ($pariwisata[$key]['saw'] as $key4 => $value4) {
+                $result = $value4['nilai']*$value4['bobot']/100;
+                $pariwisata[$key]['total_saw'] += $result;
+            }
+        }
+        echo(json_encode($pariwisata));
+        return $pariwisata;
     }
 }

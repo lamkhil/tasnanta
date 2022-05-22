@@ -162,7 +162,7 @@ class dinas extends CI_Controller
     {
         $data['title'] = 'Pemeringkatan';
         $data['admin'] = $this->M_Dinas->getDataDinas();
-        $data['wisata'] = $this->M_Dinas->getPariwisataWithNilai();
+        $data['wisata'] = $this->M_Dinas->get_saw();
         $data['status'] = $this->M_Dinas->getStatus();
 
         $this->load->view('template/header', $data);
