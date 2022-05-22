@@ -127,6 +127,27 @@ class M_Dinas extends CI_model
         $this->db->update('tb_user', $data);
     }
 
+    public function getWisata()
+    {
+        $query = $this->db->get('tb_pariwisata');
+        return $query->result_array();
+    }
+
+    public function getPariwisataWithNilai(){
+        $pariwisata = $this->getWisata();
+        foreach ($pariwisata as $key => $value) {
+            $this->db->select('*');
+            $this->db->from('tb_kriteria');
+            $this->db->join('tb_nilai', 'tb_nilai.kriteria_id = tb_kriteria.id_kriteria', 'inner');
+            $this->db->join('tb_subkriteria', 'tb_nilai.id_subkriteria = tb_subkriteria.id_subkriteria', 'inner');
+            $this->db->where('id_pariwisata', $value['id_pariwisata']);
+            $query = $this->db->get();
+            $pariwisata[$key]['nilai'] = $query->result_array();
+        }
+        echo(json_encode($pariwisata));
+        return $pariwisata;
+    }
+
     private function get_min(array $array){
         $min = $array[0];
         for ($i=0; $i < count($array); $i++) { 
