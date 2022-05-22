@@ -50,6 +50,6 @@
 </div>
 
 <script>
-$('#sortTable').DataTable();
+$('#dataTable').DataTable();
 </script>
 <!-- /.container-fluid -->
