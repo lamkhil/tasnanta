@@ -1,0 +1,1 @@
+{"id_pariwisata":"16","id_user":"13","tgl":"2022-05-20 08:12:23","nm_pariwisata":"Wisata Desa Penari","alamat":"Jl. Kertoraharjo dalam no. 10 kel. Ketawang kec. Lowokwaru","id_status":"1","built_status":"0"}

@@ -66,6 +66,16 @@ class M_Dinas extends CI_model
         $this->db->where('id_user', $id_user);
         $this->db->delete('tb_user');
     }
+    
+    public function send_notif($from, $to, $title, $desription){
+        $notif = array(
+            'from_user_id'     => $from,
+            'user_id'       => $to,
+            'title'    => $title,
+            'description' => $desription,
+        );
+        $this->db->insert('tb_notif', $notif);
+    }
 
     public function edit_status($id_pariwisata)
     {
@@ -88,6 +98,25 @@ class M_Dinas extends CI_model
         $this->db->set('id_status', $id_status);
         $this->db->where('id_pariwisata', $id_pariwisata);
         $this->db->update('tb_pariwisata', $data);
+    }
+
+    public function built_status($id_pariwisata)
+    {
+        $id_status  = 1;
+
+        $data = array(
+            'built_status'  => $id_status,
+        );
+
+        $this->db->where('id_pariwisata', $id_pariwisata);
+        $this->db->update('tb_pariwisata', $data);
+
+        $pariwisata = $this->db->get_where('tb_pariwisata', ['id_pariwisata' => $id_pariwisata])->row_array();
+        $email = $this->session->userdata('email');
+
+        $user = $this->db->get_where('tb_user', ['email' => $email])->row_array();
+        $this->send_notif($user['id_user'], $pariwisata['id_user'], 'Persetujuan Pembangunan', 'Pembangunan wisata '.$pariwisata['nm_pariwisata'].' disetujui.');
+
     }
 
     public function ubahDataProfile()
@@ -131,6 +160,7 @@ class M_Dinas extends CI_model
     {   $this->db->select('*');
         $this->db->from('tb_pariwisata');
         $this->db->where('id_status', '1');
+        $this->db->where('built_status', '0');
         $query = $this->db->get();
         return $query->result_array();
     }

@@ -143,4 +143,17 @@ class desa extends CI_Controller
             echo $this->M_Kriteria->get_opsi($this->input->post('id_kriteria'));
         }
     }
+
+    public function getUserNotif($user_id){
+        $data=$this->M_Desa->getUserNotif($user_id);
+        echo json_encode($data);
+    }
+    public function getCountUserNotifUnread($user_id){
+        $data=$this->M_Desa->getCountUserNotifUnread($user_id);
+        echo $data;
+    }
+    
+    public function readAllNotif($user_id){
+        $this->M_Desa->readAllNotif($user_id);
+    }
 }
