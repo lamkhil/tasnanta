@@ -190,6 +190,7 @@ class M_Desa extends CI_Model
         }
     }
 
+    
     public function editDataWisata($id_pariwisata)
     {
         $nm_pariwisata = $this->input->post('nm_pariwisata', true);
