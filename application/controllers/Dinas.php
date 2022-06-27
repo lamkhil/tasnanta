@@ -52,7 +52,7 @@ class dinas extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar_dinas', $data);
-            $this->load->view('admin/profile_dinas', $data);
+            $this->load->view('admin/profil_dinas', $data);
             $this->load->view('template/footer');
         } else {
             $this->M_Dinas->ubahDataProfile();
